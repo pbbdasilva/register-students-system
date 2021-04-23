@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
 class Aluno {
     string matricula;
     string nome;
@@ -57,7 +56,6 @@ public:
         cout << "Matricula: " << nomeDisciplina << endl;
         cout << "nome do professor: " << nomeProfessor << endl;
         cout << "creditos: " << creditos << endl;
-        // implementar visão de turmas
     }
 
     void addAluno(Aluno* estudante) {

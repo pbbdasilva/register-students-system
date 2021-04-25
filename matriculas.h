@@ -56,7 +56,7 @@ public:
     }
  
     void infoDisciplina() {
-        cout << "Matricula: " << nomeDisciplina << endl;
+        cout << "Nome da disciplina: " << nomeDisciplina << endl;
         cout << "nome do professor: " << nomeProfessor << endl;
         cout << "creditos: " << creditos << endl;
     }
@@ -136,10 +136,7 @@ struct NodeDisciplina {
     NodeDisciplina() : disciplina(nullptr), next(nullptr) {}
     NodeDisciplina(Disciplina* x) : disciplina(x), next(nullptr) {}
 };
- 
- 
- 
- 
+
 struct listaDisciplinas {
     NodeDisciplina *ptrInicio;
  

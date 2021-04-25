@@ -54,6 +54,10 @@ public:
         nomeProfessor = _nomeProfessor;
         creditos = _creditos;
     }
+
+    Disciplina(string _nomeDisciplina) {
+        nomeDisciplina = _nomeDisciplina;
+    }
  
     void infoDisciplina() {
         cout << "Nome da disciplina: " << nomeDisciplina << endl;
@@ -162,6 +166,19 @@ struct listaDisciplinas {
     }
  
     NodeDisciplina* searchDisciplina(Disciplina* _disciplina) {
+        NodeDisciplina* ptrAtual = ptrInicio;
+ 
+        while(ptrAtual != nullptr) {
+            if(ptrAtual->disciplina->getNomeDisciplina() == _disciplina->getNomeDisciplina()) return ptrAtual;
+ 
+            ptrAtual = ptrAtual->next;
+        }
+ 
+        return nullptr;
+    }
+
+    NodeDisciplina* searchDisciplina(string nomeDisciplina) {
+        Disciplina *_disciplina = new Disciplina(nomeDisciplina);
         NodeDisciplina* ptrAtual = ptrInicio;
  
         while(ptrAtual != nullptr) {

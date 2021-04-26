@@ -1,27 +1,47 @@
 #include<iostream>
 using namespace std;
-
+ 
 void displayMenuInicial() {
     cout << "\nMENU\n";
     cout << "0: Sair\n";
     cout << "1: Alunos\n";
     cout << "2: Disciplinas\n";
+    cout << "Escolha uma opção: ";
 }
-
+ 
 void displayMenuDisciplinas() {
-    cout << "\nBEM-VINDO AO MENU DE DISCIPLINAS\n"
-    << "DESEJA FAZER QUAL OPERAÇÃO?\n"
-    << "0: VOLTAR AO MENU INICIAL\n"
-    << "1: ADICIONAR DISCIPLINA\n"
-    << "2: REMOVER DISCIPLINA\n"
-    << "3: CONSULTAR DISCIPLINA" << endl << endl;
+    cout << "\nMENU DE DISCIPLINAS\n"
+    << "0: MENU\n"
+    << "1: Adicionar Disciplina\n"
+    << "2: Remover Disciplina\n"
+    << "3: Consultar Alunos de uma Disciplina" << endl << endl;
+    cout << "Escolha uma opção: ";
 }
-
+ 
 void displayFeatureDisciplina() {
-    cout << "OPERAÇÃO COM DISCIPLINAS" << endl;
-    cout << "FORNEÇA OS SEGUINTES DADOS:" << endl;
-    cout << "CODIGO (4 DIGITOS)" << endl;
-    cout << "NOME DA DISCIPLINA" << endl;
-    cout << "PROFESSOR DA DISCIPLINA" << endl;
-    cout << "CREDITOS DA DISCIPLINA" << endl;
+    cout << "\nOPERAÇÃO COM DISCIPLINAS" << endl;
+    cout << "Forneça os seguintes dados:" << endl;
+    cout << "Código (4 DIGITOS)" << endl;
+    cout << "Nome da Disciplina" << endl;
+    cout << "Professor da Disciplina" << endl;
+    cout << "Créditos da Disciplina" << endl;
+    cout << "\n\n";
+}
+ 
+void displayMenuAlunos() {
+    cout << "\nMENU DE ALUNOS\n";
+    cout << "0: MENU\n";
+    cout << "1: Adicionar Aluno\n";
+    cout << "2: Remover Aluno\n";
+    cout << "3: Consultar Disciplinas de um Aluno\n";
+    cout << "Escolha uma opção: ";
+}
+ 
+void displayFeatureAluno() {
+    cout << "\nOPERAÇÃO COM ALUNOS\n"
+    << "Forneça os seguintes dados:\n"
+    << "Código (5 digitos)\n"
+    << "Nome\n"
+    << "CPF\n"
+    << "Período\n\n";
 }

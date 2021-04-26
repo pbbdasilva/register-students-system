@@ -1,29 +1,29 @@
 #include"matriculas.h"
 
 void testeConstrutorAluno() {
-    Aluno pb("19417", "Pedro Barros", 13589305703, 2020.1);
+    Aluno pb("19417", "Pedro Barros", "13589305703", "2020.1");
     pb.infoAluno();
 }
  
 void testeConstrutorDisciplina() {
-    Disciplina disc("Algebra Linear 2", "Zão", 5);
+    Disciplina disc("Algebra Linear 2", "Zão", 5, "2193");
     disc.infoDisciplina();
 }
  
 void testeAdicionarAluno() {
-    Aluno at("19001", "Tourinho", 06700000042, 2020.1);
+    Aluno at("19001", "Tourinho", "06700000042", "2020.1");
     Aluno *ptr_at;
     ptr_at = &at;
-    Disciplina calc3("Cálculo 3", "Ferreira", 6);
+    Disciplina calc3("Cálculo 3", "Ferreira", 6, "2123");
     calc3.addAluno(ptr_at);
-    calc3.getHead(2020.1)->aluno->infoAluno();
+    calc3.getHead("2020.1")->aluno->infoAluno();
 }
  
 void testeSearchAluno(bool insert) {
-    Aluno at("19001", "Tourinho", 06700000042, 2020.1);
+    Aluno at("19001", "Tourinho", "06700000042", "2020.1");
     Aluno *ptr_at;
     ptr_at = &at;
-    Disciplina calc3("Cálculo 3", "Ferreira", 6);
+    Disciplina calc3("Cálculo 3", "Ferreira", 6, "2123");
     
     if(insert) calc3.addAluno(ptr_at);
  
@@ -37,12 +37,12 @@ void testeSearchAluno(bool insert) {
 }
  
 void testeRemoverHeadAluno() {
-    Aluno at("19001", "Tourinho", 06700000042, 2020.1);
-    Aluno pb("19417", "Pedro Barros", 13589305703, 2020.1);
+    Aluno at("19001", "Tourinho", "06700000042", "2020.1");
+    Aluno pb("19417", "Pedro Barros", "13589305703", "2020.1");
     Aluno *ptr_at, *ptr_pb;
     ptr_at = &at;
     ptr_pb = &pb;
-    Disciplina calc3("Cálculo 3", "Ferreira", 6);
+    Disciplina calc3("Cálculo 3", "Ferreira", 6, "2123");
     NodeAluno* aux_ptr;
  
     calc3.addAluno(ptr_at);
@@ -62,12 +62,12 @@ void testeRemoverHeadAluno() {
 }
  
 void testeRemoverNotHeadAluno() {
-    Aluno at("19001", "Tourinho", 06700000042, 2020.1);
-    Aluno pb("19417", "Pedro Barros", 13589305703, 2020.1);
+    Aluno at("19001", "Tourinho", "06700000042", "2020.1");
+    Aluno pb("19417", "Pedro Barros", "13589305703", "2020.1");
     Aluno *ptr_at, *ptr_pb;
     ptr_at = &at;
     ptr_pb = &pb;
-    Disciplina calc3("Cálculo 3", "Ferreira", 6);
+    Disciplina calc3("Cálculo 3", "Ferreira", 6, "2123");
     NodeAluno* aux_ptr;
  
     calc3.addAluno(ptr_at);
@@ -84,7 +84,7 @@ void testeRemoverNotHeadAluno() {
 void testeAdicionarDisciplina() {
     listaDisciplinas disciplinas;
  
-    Disciplina fis1("Física 1", "Rômulo", 5);
+    Disciplina fis1("Física 1", "Rômulo", 5, "1984");
     Disciplina *ptrFis1;
     ptrFis1 = &fis1;
  
@@ -96,7 +96,7 @@ void testeAdicionarDisciplina() {
 void testeSearchDisciplina(bool insert) {
     listaDisciplinas disciplinas;
  
-    Disciplina fis1("Física 1", "Rômulo", 5);
+    Disciplina fis1("Física 1", "Rômulo", 5, "1984");
     Disciplina *ptrFis1;
     ptrFis1 = &fis1;
  
@@ -114,7 +114,7 @@ void testeSearchDisciplina(bool insert) {
 void testeRemoverDisciplina() {
     listaDisciplinas disciplinas;
  
-    Disciplina fis1("Física 1", "Rômulo", 5);
+    Disciplina fis1("Física 1", "Rômulo", 5, "1984");
     Disciplina *ptrFis1;
     ptrFis1 = &fis1;
  
@@ -126,5 +126,8 @@ void testeRemoverDisciplina() {
 }
  
 int main() {
-    
+    testeConstrutorAluno();
+    testeRemoverHeadAluno();
+    testeSearchAluno(true);
+    testeAdicionarAluno();
 }

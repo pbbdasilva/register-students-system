@@ -7,11 +7,11 @@ using namespace std;
 class Aluno {
     string matricula;
     string nome;
-    long long int cpf;
-    float periodo;
+    string cpf;
+    string periodo;
  
 public:
-    Aluno(string _matricula, string _nome, long long int _cpf, float _periodo) {
+    Aluno(string _matricula, string _nome, string _cpf, string _periodo) {
         matricula = _matricula;
         nome = _nome;
         cpf = _cpf;
@@ -25,12 +25,23 @@ public:
         cout << "periodo: " << periodo << endl;
     }
  
-    float getPeriodo() {
+    string getPeriodo() {
         return periodo;
     }
  
     string getMatricula() {
         return matricula;
+    }
+
+    string stringfyAluno() {
+        string dataAluno = "";
+        dataAluno += matricula + ",";
+        dataAluno += nome + ",";
+        dataAluno += cpf + ",";
+        dataAluno += periodo + ",";
+        dataAluno += "\n";
+
+        return dataAluno;
     }
 };
  
@@ -46,13 +57,15 @@ class Disciplina {
     string nomeDisciplina;
     string nomeProfessor;
     int creditos;
-    unordered_map<float, NodeAluno*> turmaPorPeriodo;
+    string codigo;
+    unordered_map<string, NodeAluno*> turmaPorPeriodo;
  
 public:
-    Disciplina(string _nomeDisciplina, string _nomeProfessor, int _creditos) {
+    Disciplina(string _nomeDisciplina, string _nomeProfessor, int _creditos, string _codigo) {
         nomeDisciplina = _nomeDisciplina;
         nomeProfessor = _nomeProfessor;
         creditos = _creditos;
+        codigo = _codigo;
     }
 
     Disciplina(string _nomeDisciplina) {
@@ -60,6 +73,7 @@ public:
     }
  
     void infoDisciplina() {
+        cout << "codigo: " << codigo << endl;
         cout << "Nome da disciplina: " << nomeDisciplina << endl;
         cout << "nome do professor: " << nomeProfessor << endl;
         cout << "creditos: " << creditos << endl;
@@ -112,11 +126,11 @@ public:
         }
     }
  
-    NodeAluno* getHead(float periodo) {
+    NodeAluno* getHead(string periodo) {
         return turmaPorPeriodo[periodo];
     }
  
-    void printTurma(float periodo) {
+    void printTurma(string periodo) {
         NodeAluno* head = turmaPorPeriodo[periodo];
         cout << "Inicio da turma\n\n";
         while(head != nullptr) {
@@ -130,6 +144,29 @@ public:
  
     string getNomeDisciplina() {
         return nomeDisciplina;
+    }
+
+    string stringfyHeader() {
+        string aux = "";
+        aux += nomeDisciplina + ",";
+        aux += nomeProfessor + ",";
+        aux += to_string(creditos) + ",";
+        aux += codigo + ",";
+
+        return aux;
+    }
+
+    string dataTurma() {
+        string dataAlunos = "";
+        for(auto itr : turmaPorPeriodo) {
+            NodeAluno* aux = itr.second;
+
+            while(aux != nullptr) {
+                dataAlunos += aux->aluno->stringfyAluno();
+                aux = aux->next;
+            }
+        }
+        return dataAlunos;
     }
 };
  

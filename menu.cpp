@@ -1,6 +1,9 @@
 #include"matriculas.h"
 #include"displays.h"
 #include<fstream>
+#include<sstream>
+#include<string>
+#include<iostream>
 listaDisciplinas Disciplinas;
  
 void getDataDisciplina(string *input) {
@@ -8,10 +11,12 @@ void getDataDisciplina(string *input) {
     
     for(int i = 0; i < 4; i++) {
         string userInput;
+        cout << "- ";
         getline(cin, userInput);
         // cout << "> " << userInput << endl;
         input[i] = userInput;
     }
+    cout << "\n";
 }
  
 void showDataDisciplina(string *input) {
@@ -28,7 +33,7 @@ void adicionarDisciplina(bool show) {
     Disciplina* novaDisciplina = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     Disciplinas.addDisciplina(novaDisciplina);
  
-    cout << "Adicionado com sucesso" << endl;
+    cout << "Adicionada com sucesso" << endl;
  
     if(show) showDataDisciplina(data);
 }
@@ -94,9 +99,11 @@ void getDataAluno(string *input) {
     displayFeatureAluno();
     for (int i = 0; i < 4; i++) {
         string userInput;
+        cout << "- ";
         getline(cin, userInput);
         input[i] = userInput;
     }
+    cout << "\n";
 }
  
 void removerAluno() {
@@ -146,8 +153,12 @@ void adicionarAluno() {
             if (queryResult == nullptr) {
                 cout << "\nEssa disciplina não existe.\n";
                 continue;
-            } else queryResult->disciplina->addAluno(novoAluno);
+            } else{
+                queryResult->disciplina->addAluno(novoAluno);
+                cout << "\nAluno adicionado com sucesso\n";
+            }
         }
+
     }    
 }
   
@@ -183,23 +194,125 @@ void menuAlunos() {
     }
 }
 
+
+
 void salvarDados() {
     ofstream file;
-    file.open("teste.txt", ios::trunc);
-    NodeDisciplina* ptrData = Disciplinas.ptrInicio;
+    file.open("database.txt", ios::trunc);
+    NodeDisciplina* ptrNodeDisciplina = Disciplinas.ptrInicio;
 
-    while(ptrData != nullptr) {
-        string dataDisciplina = ">";
-        dataDisciplina += ptrData->disciplina->stringfyHeader();
-        file << dataDisciplina << endl;
-        file << ptrData->disciplina->dataTurma() << endl;
-        ptrData = ptrData->next;
+    while(ptrNodeDisciplina != nullptr) {
+
+        for(auto itr : ptrNodeDisciplina->disciplina->getHash()){
+            NodeAluno* aux = itr.second;
+            
+            if (aux == nullptr) {
+                string dataLinha = "";
+                dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
+                dataLinha += ",,,";
+                file << dataLinha;
+            }
+            else {
+                while(aux != nullptr) {
+                    string dataLinha = "";
+                    dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
+                    dataLinha += aux->aluno->stringfyAluno();
+                    file << dataLinha;
+                    aux = aux->next;
+                }
+            }
+        }
+        ptrNodeDisciplina = ptrNodeDisciplina->next;
     }
 }
 
-void loadDados() {
-    ifstream file;
 
+
+void loadDados(){
+    // Create a text string, which is used to output the text file
+    string MyText;
+
+    // criando string onde será salvo os dados de cada linha
+    string *data_linha = new string[8];
+
+    // Read from the text file
+    ifstream MyReadFile("database.txt");
+
+    // loop while and getline() to read the file line by line
+    while (getline (MyReadFile, MyText)) {
+        string my_str = MyText;
+
+        stringstream s_stream(my_str); //create string stream from the string
+        for (int i = 0; i < 8; i++) {
+            string substr;
+            getline(s_stream, substr, ','); //get first string delimited by comma
+            data_linha[i] = substr;
+        }
+        //dados salvos em um array data_linha[]
+
+
+        // atribuindo os dados da disciplina
+        string _nomeDisciplina = data_linha[0];
+        string _nomeProfessor = data_linha[1];
+        int _creditos = stoi(data_linha[2]);
+        string _codigo = data_linha[3];
+
+        // conferir pelo nome se a disciplina existe.
+        NodeDisciplina *confere_disciplina;
+        confere_disciplina = Disciplinas.searchDisciplina(_nomeDisciplina);
+        // se discplina não existir: criar, add aluno (se for o caso) e add discplina à lista de disciplinas
+        if (confere_disciplina == nullptr) {
+            
+            // construindo de fato a nova discplina
+            Disciplina *ptr_nova_disciplina = new Disciplina(_nomeDisciplina,_nomeProfessor,_creditos,_codigo);
+            
+            // se o comando veio também com um aluno,
+            // adicionar o aluno à discplina criada
+            if (data_linha[4] != "") {
+                // atribuindo os dados do aluno
+                string _matricula = data_linha[4];
+                string _nome = data_linha[5];
+                string _cpf = data_linha[6];
+                string _periodo = data_linha[7];
+
+                // construindo o aluno
+                Aluno *ptr_novo_aluno = new Aluno(_matricula,_nome,_cpf,_periodo);
+
+
+                // adicionar aluno à disciplina
+                ptr_nova_disciplina->addAluno(ptr_novo_aluno);
+            }
+            
+
+            Disciplinas.addDisciplina(ptr_nova_disciplina);
+        }
+        else {
+        // se a disciplina já existir: apenas adicionar o aluno
+
+            // criando um ponteiro que aponta para tal disciplina
+            Disciplina* aponta_disciplina ;
+            aponta_disciplina = confere_disciplina->disciplina;
+            
+            // atribuindo os dados do aluno
+            string _matricula = data_linha[4];
+            string _nome = data_linha[5];
+            string _cpf = data_linha[6];
+            string _periodo = data_linha[7];
+
+
+            // construindo o aluno
+            Aluno *ptr_novo_aluno = new Aluno(_matricula,_nome,_cpf,_periodo);
+
+            // adicionar aluno à disciplina
+            aponta_disciplina->addAluno(ptr_novo_aluno);
+        }
+
+    }
+
+    cout << "\nDados carregados com sucesso.\n";
+
+    // Close the file
+    MyReadFile.close();
 }
 
 

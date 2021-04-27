@@ -19,7 +19,7 @@ public:
     }
  
     void infoAluno() {
-        cout << "Matricula: " << matricula << endl;
+        cout << "\nMatricula: " << matricula << endl;
         cout << "Nome: " << nome << endl;
         cout << "cpf: " << cpf << endl;
         cout << "periodo: " << periodo << endl;
@@ -38,7 +38,7 @@ public:
         dataAluno += matricula + ",";
         dataAluno += nome + ",";
         dataAluno += cpf + ",";
-        dataAluno += periodo + ",";
+        dataAluno += periodo;
         dataAluno += "\n";
 
         return dataAluno;
@@ -73,10 +73,10 @@ public:
     }
  
     void infoDisciplina() {
-        cout << "codigo: " << codigo << endl;
+        cout << "\nCódigo: " << codigo << endl;
         cout << "Nome da disciplina: " << nomeDisciplina << endl;
-        cout << "nome do professor: " << nomeProfessor << endl;
-        cout << "creditos: " << creditos << endl;
+        cout << "Nome do professor: " << nomeProfessor << endl;
+        cout << "Créditos: " << creditos << endl;
     }
  
     void addAluno(Aluno* estudante) {
@@ -128,6 +128,10 @@ public:
  
     NodeAluno* getHead(string periodo) {
         return turmaPorPeriodo[periodo];
+    }
+
+    unordered_map<string, NodeAluno*> getHash(){
+        return turmaPorPeriodo;
     }
  
     void printTurma(string periodo) {

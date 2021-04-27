@@ -1,0 +1,3 @@
+fisica,romulo,5,1001,19001,at,667,2021.1
+fisica,romulo,5,1001,19401,pb,668,2021.1
+destec,ricardo,1,destec,19401,pb,668,2021.1

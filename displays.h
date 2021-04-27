@@ -6,7 +6,9 @@ void displayMenuInicial() {
     cout << "0: Sair\n";
     cout << "1: Alunos\n";
     cout << "2: Disciplinas\n";
-    cout << "Escolha uma opção: ";
+    cout << "3: Salvar alterações\n";
+    cout << "4: Carregar dados salvos\n";
+    cout << "\nEscolha uma opção: ";
 }
  
 void displayMenuDisciplinas() {
@@ -21,10 +23,10 @@ void displayMenuDisciplinas() {
 void displayFeatureDisciplina() {
     cout << "\nOPERAÇÃO COM DISCIPLINAS" << endl;
     cout << "Forneça os seguintes dados:" << endl;
-    cout << "Código (4 DIGITOS)" << endl;
-    cout << "Nome da Disciplina" << endl;
-    cout << "Professor da Disciplina" << endl;
-    cout << "Créditos da Disciplina" << endl;
+    cout << "- Código (4 DIGITOS)" << endl;
+    cout << "- Nome da Disciplina" << endl;
+    cout << "- Professor da Disciplina" << endl;
+    cout << "- Créditos da Disciplina" << endl;
     cout << "\n\n";
 }
  
@@ -34,14 +36,14 @@ void displayMenuAlunos() {
     cout << "1: Adicionar Aluno\n";
     cout << "2: Remover Aluno\n";
     cout << "3: Consultar Disciplinas de um Aluno\n";
-    cout << "Escolha uma opção: ";
+    cout << "\nEscolha uma opção: ";
 }
  
 void displayFeatureAluno() {
     cout << "\nOPERAÇÃO COM ALUNOS\n"
     << "Forneça os seguintes dados:\n"
-    << "Código (5 digitos)\n"
-    << "Nome\n"
-    << "CPF\n"
-    << "Período\n\n";
+    << "- Código (5 digitos)\n"
+    << "- Nome\n"
+    << "- CPF\n"
+    << "- Período\n\n";
 }

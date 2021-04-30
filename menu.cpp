@@ -5,10 +5,10 @@
 #include<string>
 #include<iostream>
 listaDisciplinas Disciplinas;
- 
+
 void getDataDisciplina(string *input) {
     displayFeatureDisciplina();
-    
+
     for(int i = 0; i < 4; i++) {
         string userInput;
         cout << "- ";
@@ -18,7 +18,7 @@ void getDataDisciplina(string *input) {
     }
     cout << "\n";
 }
- 
+
 void showDataDisciplina(string *input) {
     cout << "\n o x é pra demarcar o fim, sem perigo de ter espaços indesejados" << endl;
     cout << "codigo: " << input[0] << "x" << endl;
@@ -26,30 +26,30 @@ void showDataDisciplina(string *input) {
     cout << "nome da disciplina: " << input[2] << "x" << endl;
     cout << "creditos: " << input[3] << "x" << endl;
 }
- 
+
 void adicionarDisciplina(bool show) {
     string data[4];
     getDataDisciplina(data);
     Disciplina* novaDisciplina = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     Disciplinas.addDisciplina(novaDisciplina);
- 
+
     cout << "Adicionada com sucesso" << endl;
- 
+
     if(show) showDataDisciplina(data);
 
     delete novaDisciplina;
 }
- 
+
 void removerDisciplina() {
     string data[4];
     getDataDisciplina(data);
     Disciplina* DisciplinaEscolhida = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     Disciplinas.removeDisciplina(DisciplinaEscolhida);
- 
+
     cout << "Removido com sucesso" << endl;
     delete DisciplinaEscolhida;
 }
- 
+
 void consultarDisciplinas() {
     string periodo;
     string data[4];

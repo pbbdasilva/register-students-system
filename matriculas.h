@@ -114,12 +114,14 @@ public:
         NodeAluno* ptrAluno = searchAluno(estudante);
  
         if(ptrAluno == ptrHead) {
-            cout << "head equal item to remove\n";
             // remove head
             turmaPorPeriodo[estudante->getPeriodo()] = turmaPorPeriodo[estudante->getPeriodo()]->next;
             delete ptrAluno;
+        
         } else {
+
             while(ptrHead->next->aluno->getMatricula() != ptrAluno->aluno->getMatricula()) ptrHead = ptrHead->next;
+            
             // now we are at the previous node of the one we want to remove
             ptrHead->next = ptrAluno->next;
             delete ptrAluno;
@@ -228,6 +230,7 @@ struct listaDisciplinas {
             ptrAtual = ptrAtual->next;
         }
  
+        delete _disciplina;
         return nullptr;
     }
  

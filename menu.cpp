@@ -28,7 +28,7 @@ void showDataDisciplina(string *input) {
 }
  
 void adicionarDisciplina(bool show) {
-    string *data = new string[4];
+    string data[4];
     getDataDisciplina(data);
     Disciplina* novaDisciplina = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     Disciplinas.addDisciplina(novaDisciplina);
@@ -36,20 +36,23 @@ void adicionarDisciplina(bool show) {
     cout << "Adicionada com sucesso" << endl;
  
     if(show) showDataDisciplina(data);
+
+    delete novaDisciplina;
 }
  
 void removerDisciplina() {
-    string *data = new string[4];
+    string data[4];
     getDataDisciplina(data);
     Disciplina* DisciplinaEscolhida = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     Disciplinas.removeDisciplina(DisciplinaEscolhida);
  
     cout << "Removido com sucesso" << endl;
+    delete DisciplinaEscolhida;
 }
  
 void consultarDisciplinas() {
     string periodo;
-    string *data = new string[4];
+    string data[4];
     getDataDisciplina(data);
     Disciplina* DisciplinaEscolhida = new Disciplina(data[1], data[2], stoi(data[3]), data[0]);
     NodeDisciplina* queryResult = Disciplinas.searchDisciplina(DisciplinaEscolhida);
@@ -61,6 +64,8 @@ void consultarDisciplinas() {
         while(aux != nullptr) aux->aluno->infoAluno(), aux = aux->next;
     }
     else cout << "Não existe no sistema" << endl;
+
+    delete DisciplinaEscolhida;
 }
  
 void disciplinaFeatures(int userResponse, bool& wannaQuit) {
@@ -107,7 +112,7 @@ void getDataAluno(string *input) {
 }
  
 void removerAluno() {
-    string *data = new string[4];
+    string data[4];
     getDataAluno(data);
     Aluno* novoAluno = new Aluno(data[0], data[1], data[2], data[3]);
  
@@ -120,10 +125,12 @@ void removerAluno() {
         }
         ptrHead = ptrHead->next;
     }
+
+    delete novoAluno;
 }
  
 void consultarAlunos() {
-    string *data = new string[4];
+    string data[4];
     getDataAluno(data);
     Aluno* novoAluno = new Aluno(data[0], data[1], data[2], data[3]);
  
@@ -133,10 +140,12 @@ void consultarAlunos() {
         if (ptrHead->disciplina->searchAluno(novoAluno) != nullptr) ptrHead->disciplina->infoDisciplina();
         ptrHead = ptrHead->next;
     }
+
+    delete novoAluno;
 }
  
 void adicionarAluno() {
-    string *data = new string[4];
+    string data[4];
     getDataAluno(data);
     Aluno* novoAluno = new Aluno(data[0], data[1], data[2], data[3]);
  
@@ -158,8 +167,9 @@ void adicionarAluno() {
                 cout << "\nAluno adicionado com sucesso\n";
             }
         }
+    }
 
-    }    
+    delete novoAluno;
 }
   
 void alunoFeatures(int userResponse, bool& wannaQuit) {
@@ -202,23 +212,29 @@ void salvarDados() {
     NodeDisciplina* ptrNodeDisciplina = Disciplinas.ptrInicio;
 
     while(ptrNodeDisciplina != nullptr) {
-
-        for(auto itr : ptrNodeDisciplina->disciplina->getHash()){
-            NodeAluno* aux = itr.second;
-            
-            if (aux == nullptr) {
-                string dataLinha = "";
-                dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
-                dataLinha += ",,,";
-                file << dataLinha;
-            }
-            else {
-                while(aux != nullptr) {
+        if(ptrNodeDisciplina->disciplina->getHash().size() == 0) {
+            string dataLinha = "";
+            dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
+            dataLinha += ",,,\n";
+            file << dataLinha;
+        } else {
+            for(auto itr : ptrNodeDisciplina->disciplina->getHash()){
+                NodeAluno* aux = itr.second;
+                
+                if (aux == nullptr) {
                     string dataLinha = "";
                     dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
-                    dataLinha += aux->aluno->stringfyAluno();
+                    dataLinha += ",,,\n";
                     file << dataLinha;
-                    aux = aux->next;
+                }
+                else {
+                    while(aux != nullptr) {
+                        string dataLinha = "";
+                        dataLinha += ptrNodeDisciplina->disciplina->stringfyHeader();
+                        dataLinha += aux->aluno->stringfyAluno();
+                        file << dataLinha;
+                        aux = aux->next;
+                    }
                 }
             }
         }
@@ -233,7 +249,7 @@ void loadDados(){
     string MyText;
 
     // criando string onde será salvo os dados de cada linha
-    string *data_linha = new string[8];
+    string data_linha[8];
 
     // Read from the text file
     ifstream MyReadFile("database.txt");
@@ -314,9 +330,6 @@ void loadDados(){
     // Close the file
     MyReadFile.close();
 }
-
-
-
  
 void menuInicialFeatures(int userResponse, bool& wannaQuit) {
     switch (userResponse) {
